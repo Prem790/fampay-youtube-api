@@ -1,0 +1,23 @@
+# Environment variables
+.env
+
+# Dependencies
+/web/node_modules
+/web/dist
+
+# Build
+/bin
+/dist
+
+# IDE
+.idea
+.vscode
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+# Test coverage
+coverage/

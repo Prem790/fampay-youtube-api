@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    ports:
+      - "8080:8080"
+    environment:
+      # MongoDB Configuration (Atlas)
+      - MONGODB_URI=mongodb+srv://pjadwanibe21:prem1234@cluster0.sho3y.mongodb.net/fampay_youtube?retryWrites=true&w=majority
+      - MONGODB_DATABASE=fampay_youtube
+      
+      # Redis Configuration
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=
+      - REDIS_DB=0
+      
+      # YouTube API Configuration
+      - YOUTUBE_API_KEYS=AIzaSyCsXqbwYqeT2u6u9x24betBrcj1f7kxKgc
+      - YOUTUBE_SEARCH_QUERIES=cricket,football,technology,music,gaming,news,travel,cooking,sports,entertainment
+      - FETCH_INTERVAL=10
+      - MAX_RESULTS_PER_QUERY=50
+      - REGION_CODE=IN
+      - RELEVANCE_LANGUAGE=en
+      
+      # Server Configuration
+      - PORT=8080
+      - HOST=0.0.0.0
+      - GIN_MODE=release
+    depends_on:
+      redis:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - fampay-network
+
+  # Frontend Dashboard
+  frontend:
+    build:
+      context: ./web
+      dockerfile: ../docker/Dockerfile.frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8080
+      - VITE_APP_TITLE=FamPay YouTube Dashboard
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - fampay-network
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"  # External port 6380 to avoid conflict
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    networks:
+      - fampay-network
+
+volumes:
+  redis_data:
+
+networks:
+  fampay-network:
+    driver: bridge
