@@ -370,6 +370,7 @@ If you encounter any issues:
 2. Verify all environment variables are set correctly
 3. Ensure Docker is running properly
 4. Check logs: `docker-compose logs -f`
+5. Or you can reach out to me at :- pjadwani_be21@thapar.edu
 
 ---
 
