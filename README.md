@@ -47,7 +47,7 @@ A scalable YouTube video fetching and search application built with **Go**, **Re
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Prem790/fampay-youtube-api.git
 cd fampay-youtube-api
 ```
 
