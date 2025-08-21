@@ -10,7 +10,7 @@ services:
       - "8080:8080"
     environment:
       # MongoDB Configuration (Atlas)
-      - MONGODB_URI=mongodb+srv://pjadwanibe21:prem1234@cluster0.sho3y.mongodb.net/fampay_youtube?retryWrites=true&w=majority
+      - MONGODB_URI=mongodb+srv://username:password@cluster0.sho3y.mongodb.net/fampay_youtube?retryWrites=true&w=majority
       - MONGODB_DATABASE=fampay_youtube
       
       # Redis Configuration
@@ -20,7 +20,7 @@ services:
       - REDIS_DB=0
       
       # YouTube API Configuration
-      - YOUTUBE_API_KEYS=AIzaSyCsXqbwYqeT2u6u9x24betBrcj1f7kxKgc
+      - YOUTUBE_API_KEYS=key1,key2,key3
       - YOUTUBE_SEARCH_QUERIES=cricket,football,technology,music,gaming,news,travel,cooking,sports,entertainment
       - FETCH_INTERVAL=10
       - MAX_RESULTS_PER_QUERY=50
